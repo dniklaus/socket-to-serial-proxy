@@ -6,7 +6,7 @@
         <jar destfile="C:/work/workspace/SocketToSerialProxy/lib/SocketToSerialProxy.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
-                <attribute name="Rsrc-Main-Class" value="ch.erni.proxy.SocketToSerialProxy"/>
+                <attribute name="Rsrc-Main-Class" value="dniklaus.proxy.SocketToSerialProxy"/>
                 <attribute name="Class-Path" value="."/>
                 <attribute name="Rsrc-Class-Path" value="./ RXTXcomm.jar"/>
             </manifest>

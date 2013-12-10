@@ -1,4 +1,4 @@
-package ch.erni.proxy;
+package dniklaus.proxy;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -37,32 +37,43 @@ public class SocketToSerialProxy
 
     ss = new ServerSocket(pport);
 
-    while (true)
+    try
+    {   
+    	if (Thread.interrupted())
+    	{
+    		throw new InterruptedException();
+    	}
+	    while (true)
+	    {
+	      try
+	      {
+	        Socket s = ss.accept();
+	        while (s.isConnected())
+	        {
+	          while (input.available() > 0)
+	          {
+	            s.getOutputStream().write(input.read());
+	          }
+	          while (s.getInputStream().available() > 0)
+	          {
+	            output.write(s.getInputStream().read());
+	          }
+	          try
+	          {
+	            Thread.sleep(100);
+	          }
+	          catch (Exception e)
+	          { }
+	        }
+	      }
+	      catch (Throwable t)
+	      {
+	      }// just keep running
+	    }
+    }
+    catch (InterruptedException e)
     {
-      try
-      {
-        Socket s = ss.accept();
-        while (s.isConnected())
-        {
-          while (input.available() > 0)
-          {
-            s.getOutputStream().write(input.read());
-          }
-          while (s.getInputStream().available() > 0)
-          {
-            output.write(s.getInputStream().read());
-          }
-          try
-          {
-            Thread.sleep(100);
-          }
-          catch (Exception e)
-          { }
-        }
-      }
-      catch (Throwable t)
-      {
-      }// just keep running
+    	port.close();
     }
   }
 }
