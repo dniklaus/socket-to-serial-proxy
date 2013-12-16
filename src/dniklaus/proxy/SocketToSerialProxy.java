@@ -22,8 +22,14 @@ public class SocketToSerialProxy
    */
   public static void main(String[] args) throws Exception
   {
-    String paramTcpPortName = args[0];
-    String paramComPortName = args[1];
+    String paramTcpPortName = defaultTcpPortName;
+    String paramComPortName = defaultComPortName;
+
+    if (args.length == 2)
+    {
+      paramTcpPortName = args[0];
+      paramComPortName = args[1];
+    }
           
     String tcpPortName = defaultTcpPortName;
     if (!paramTcpPortName.equals(""))
